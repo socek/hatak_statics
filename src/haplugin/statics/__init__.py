@@ -1,3 +1,4 @@
-from hatak.plugins.statics.plugin import StaticPlugin
+from .helper import StaticHelper
+from .plugin import StaticPlugin
 
-__all__ = ['StaticPlugin']
+__all__ = ['StaticPlugin', 'StaticHelper']

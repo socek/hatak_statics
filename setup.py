@@ -9,7 +9,7 @@ install_requires = [
 if __name__ == '__main__':
     setup(
         name='Hatak_Statics',
-        version='0.1',
+        version='0.2',
         description='Statics plugin for Hatak.',
         license='Apache License 2.0',
         packages=find_packages('src'),
@@ -18,4 +18,9 @@ if __name__ == '__main__':
         install_requires=install_requires,
         include_package_data=True,
         zip_safe=False,
+        package_data={
+            'haplugin': [
+                'statics/templates/*.jinja2'
+            ],
+        }
     )

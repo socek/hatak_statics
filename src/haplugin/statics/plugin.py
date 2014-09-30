@@ -1,8 +1,10 @@
-from hatak.plugin import Plugin, reify
+from hatak.plugin import Plugin
 from hatak.controller import ControllerPlugin
 from haplugin.jinja2 import Jinja2Plugin
 
 from .helper import StaticHelper
+from .request_plugins import AddJsRequestPlugin, AddCssLinkRequestPlugin
+from .request_plugins import AddJsLinkRequestPlugin, GetStaticRequestPlugin
 
 
 class StaticPlugin(Plugin):
@@ -12,37 +14,11 @@ class StaticPlugin(Plugin):
         self.registry['js_codes'] = []
         self.registry['css_links'] = []
 
-    def after_config(self):
-        self.config.add_request_method(
-            self.add_js, 'add_js', reify=True)
-        self.config.add_request_method(
-            self.add_js_link, 'add_js_link', reify=True)
-        self.config.add_request_method(
-            self.add_css_link, 'add_css_link', reify=True)
-        self.config.add_request_method(
-            self.get_static, 'get_static', reify=True)
-
-    @reify
-    def add_js(self, request, code):
-        if code not in request.registry['js_codes']:
-            request.registry['js_codes'].append(code)
-        return ''
-
-    @reify
-    def add_js_link(self, request, url):
-        link = request.get_static(url)
-        if link not in self.registry['js_links']:
-            request.registry['js_links'].append(link)
-
-    @reify
-    def add_css_link(self, request, url):
-        link = request.get_static(url)
-        if link not in self.registry['css_links']:
-            request.registry['css_links'].append(link)
-
-    @reify
-    def get_static(self, request, url):
-        return request.static_path(self.settings['static'] + url)
+    def add_request_plugins(self):
+        self.add_request_plugin(AddJsRequestPlugin)
+        self.add_request_plugin(AddCssLinkRequestPlugin)
+        self.add_request_plugin(AddJsLinkRequestPlugin)
+        self.add_request_plugin(GetStaticRequestPlugin)
 
     def add_controller_plugins(self, plugins):
         plugins.append(StaticControllerPlugin)
