@@ -20,8 +20,8 @@ class StaticPlugin(Plugin):
         self.add_request_plugin(AddJsLinkRequestPlugin)
         self.add_request_plugin(GetStaticRequestPlugin)
 
-    def add_controller_plugins(self, plugins):
-        plugins.append(StaticControllerPlugin)
+    def add_controller_plugins(self):
+        self.add_controller_plugin(StaticControllerPlugin)
 
     def add_depedency_plugins(self):
         self.app._validate_dependency_plugin(Jinja2Plugin)
