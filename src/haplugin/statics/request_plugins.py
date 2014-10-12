@@ -40,4 +40,4 @@ class GetStaticRequestPlugin(RequestPlugin):
         super().__init__('get_static')
 
     def __call__(self, url):
-        return self.request.static_path(self.settings['static'] + url)
+        return self.request.static_path(self.paths['static'] + url)
