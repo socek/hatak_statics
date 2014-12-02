@@ -19,8 +19,8 @@ class StaticHelper(Jinja2HelperMany):
     def js_codes(self):
         return self.request.registry['js_codes']
 
-    def add_js_link(self, link):
-        self.request.add_js_link(link)
+    def add_js_link(self, link, index=None):
+        self.request.add_js_link(link, index)
         return ''
 
     def add_css_link(self, link):

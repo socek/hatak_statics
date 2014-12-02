@@ -37,5 +37,5 @@ class StaticControllerPlugin(ControllerPlugin):
         for link in self.settings.get('css', []):
             static.add_css_link(link)
 
-        for link in self.settings.get('js', []):
-            static.add_js_link(link)
+        for link in reversed(self.settings.get('js', [])):
+            static.add_js_link(link, 0)

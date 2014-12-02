@@ -28,10 +28,13 @@ class AddJsLinkRequestPlugin(RequestPlugin):
     def __init__(self):
         super().__init__('add_js_link')
 
-    def __call__(self, url):
+    def __call__(self, url, index=None):
         link = self.request.get_static(url)
         if link not in self.registry['js_links']:
-            self.registry['js_links'].append(link)
+            if index is None:
+                self.registry['js_links'].append(link)
+            else:
+                self.registry['js_links'].insert(index, link)
 
 
 class GetStaticRequestPlugin(RequestPlugin):
